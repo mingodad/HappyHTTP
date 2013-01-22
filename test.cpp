@@ -1,4 +1,6 @@
 #include "happyhttp.h"
+#include <cstdio>
+#include <cstring>
 
 #ifdef WIN32
 #include <winsock2.h>
