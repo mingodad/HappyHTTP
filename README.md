@@ -31,11 +31,7 @@ processing responses.
     for responses.
 -   Licensed under the [zlib/libpng
     license](http://www.opensource.org/licenses/zlib-license.php).
--   Cross-platform (Linux, OSX, Windows, at least)
-
-Why reinvent the wheel with yet another HTTP library?
- I wanted one that was non-blocking, lightweight, and easy to drop into
-an existing project. Also, I wanted to learn a bit more about HTTP.
+-   Cross-platform (Linux, OSX, Windows)
 
 * * * * *
 
@@ -50,11 +46,10 @@ Latest Version is 0.1:
 Usage
 -----
 
-The interface is based loosely on Pythons
-[httplib](http://docs.python.org/lib/module-httplib.html). I've kept the
-same terminology where possible.
+The interface is based loosely on Python's
+[httplib](http://docs.python.org/lib/module-httplib.html).
 
-All HappyHTTP code is kept within the `happyhttp` namespace
+All HappyHTTP code is kept within the `happyhttp::` namespace
 
 To issue and process a HTTP request, the basic steps are:
 
@@ -209,34 +204,11 @@ For more examples, see [test.cpp](test.cpp).
 TODO
 ----
 
-Priority stuff:
-
 -   Proxy support
 -   Add helper functions for URL wrangling
 -   Improve error text (and maybe some more exception types?)
 -   HTTP 0.9 support
 -   Improved documentation and examples
-
-Stuff that'd be nice, but I probably won't get around to doing for a
-while:
-
--   Get rid of STL usage (Don't really need STL, and it a lot of
-    projects prefer not to use it, especially games)
--   Compile option to use error codes instead of exceptions. Exception
-    use is likely to be a real show-stopper for many game developers.
--   Some higher-level helpers to handle redirects etc...
--   Add interface to Response to allow iteration over headers
-
-Stuff that I almost certainly won't get around to doing, but would
-seriously consider if someone sent me a patch :-)
-
--   Convert to straight C instead of C++.
--   Remove/reduce dynamic memory allocation (for platforms where
-    fragmentation is a big issue).
--   HTTPS support - I really have no idea what's involved here. Probably
-    involves pulling in some SSL library or something.
--   Compiling under Visual Studio. Shouldn't be too hard, but it's quite
-    likely that some minor tweaks will be needed!
 
 * * * * *
 
@@ -246,8 +218,7 @@ License
 HappyHTTP is licensed under the [zlib/libpng
 license](http://www.opensource.org/licenses/zlib-license.php).
 
-The intented spirit is: do whatever you want with it (including using it
-in commercial products), but if you make improvements, please send me a
-patch!
+You are free to use this library however you wish, but if you
+make changes, please send a patch!
 
-If you use it in something cool, let me know!
+If you use it, let us know.
