@@ -27,17 +27,15 @@
 
 #include "happyhttp.h"
 
-#ifndef WIN32
+#ifndef _WIN32
 //	#include <sys/types.h>
 	#include <sys/socket.h>
 	#include <netinet/in.h>
 	#include <arpa/inet.h>
 	#include <netdb.h>	// for gethostbyname()
 	#include <errno.h>
-#endif
-
-#ifdef WIN32
-	#include <winsock2.h>
+#else
+	#include <WinSock2.h>
 	#define vsnprintf _vsnprintf
 #endif
 
@@ -319,7 +317,7 @@ void Connection::request( const char* method,
 			const char* value = *h++;
 			assert( value != 0 );	// name with no value!
 
-			if( 0==strcasecmp( name, "content-length" ) )
+			if( 0==_stricmp( name, "content-length" ) )
 				gotcontentlength = true;
 		}
 	}
@@ -511,7 +509,11 @@ Response::Response( const char* method, Connection& conn ) :
 const char* Response::getheader( const char* name ) const
 {
 	std::string lname( name );
+#ifdef _MSC_VER
+	std::transform( lname.begin(), lname.end(), lname.begin(), tolower );
+#else
 	std::transform( lname.begin(), lname.end(), lname.begin(), ::tolower );
+#endif
 
 	std::map< std::string, std::string >::const_iterator it = m_Headers.find( lname );
 	if( it == m_Headers.end() )
@@ -850,7 +852,7 @@ void Response::BeginBody()
 
 	// using chunked encoding?
 	const char* trenc = getheader( "transfer-encoding" );
-	if( trenc && 0==strcasecmp( trenc, "chunked") )
+	if( trenc && 0==_stricmp( trenc, "chunked") )
 	{
 		m_Chunked = true;
 		m_ChunkLeft = -1;	// unknown
@@ -910,7 +912,7 @@ bool Response::CheckClose()
 		// HTTP1.1
 		// the connection stays open unless "connection: close" is specified.
 		const char* conn = getheader( "connection" );
-		if( conn && 0==strcasecmp( conn, "close" ) )
+		if( conn && 0==_stricmp( conn, "close" ) )
 			return true;
 		else
 			return false;
