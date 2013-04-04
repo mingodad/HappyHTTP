@@ -29,7 +29,7 @@ void OnComplete( const happyhttp::Response* r, void* userdata )
 
 void Test1()
 {
-	printf("-----------------Test1------------------------\n" );
+	puts("-----------------Test1------------------------" );
 	// simple simple GET
 	happyhttp::Connection conn( "www.scumways.com", 80 );
 	conn.setcallbacks( OnBegin, OnData, OnComplete, 0 );
@@ -44,7 +44,7 @@ void Test1()
 
 void Test2()
 {
-	printf("-----------------Test2------------------------\n" );
+	puts("-----------------Test2------------------------" );
 	// POST using high-level request interface
 
 	const char* headers[] = 
@@ -71,7 +71,7 @@ void Test2()
 
 void Test3()
 {
-	printf("-----------------Test3------------------------\n" );
+	puts("-----------------Test3------------------------" );
 	// POST example using lower-level interface
 
 	const char* params = "answer=42&foo=bar";
@@ -102,7 +102,7 @@ int main( int argc, char* argv[] )
     int code = WSAStartup(MAKEWORD(1, 1), &wsaData);
 	if( code != 0 )
 	{
-		printf("shite. %d\n",code);
+		fprintf(stderr, "shite. %d\n",code);
 		return 0;
 	}
 #endif //WIN32
@@ -115,7 +115,7 @@ int main( int argc, char* argv[] )
 
 	catch( happyhttp::Wobbly& e )
 	{
-		printf("Exception:\n%s\n", e.what() );
+		fprintf(stderr, "Exception:\n%s\n", e.what() );
 	}
 	
 #ifdef WIN32
