@@ -49,7 +49,9 @@
 #include <string>
 #include <algorithm>
 
-
+#ifdef __APPLE__
+	#define _stricmp strcasecmp
+#endif
 
 
 using namespace std;
