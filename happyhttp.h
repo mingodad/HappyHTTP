@@ -173,7 +173,7 @@ public:
 
 	// Update the connection (non-blocking)
 	// Just keep calling this regularly to service outstanding requests.
-	void pump();
+	void pump(int milisec=10); //10 miliseconds to prevent high cpu load
 
 	// any requests still outstanding?
 	bool outstanding() const
