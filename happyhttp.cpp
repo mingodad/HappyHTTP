@@ -149,7 +149,7 @@ const char* GetWinsockErrorString( int err )
 
 
 // return true if socket has data waiting to be read
-bool datawaiting( int sock )
+bool datawaiting( int sock, int milisec=0 )
 {
 	fd_set fds;
 	FD_ZERO( &fds );
@@ -157,7 +157,7 @@ bool datawaiting( int sock )
 
 	struct timeval tv;
 	tv.tv_sec = 0;
-	tv.tv_usec = 0;
+	tv.tv_usec = milisec ? milisec * 1000 : 0;
 
 	int r = select( sock+1, &fds, NULL, NULL, &tv);
 	if (r < 0)
@@ -428,14 +428,14 @@ void Connection::send( const unsigned char* buf, int numbytes )
 }
 
 
-void Connection::pump()
+void Connection::pump(int milisec)
 {
 	if( m_Outstanding.empty() )
 		return;		// no requests outstanding
 
 	assert( m_Sock >0 );	// outstanding requests but no connection!
 
-	if( !datawaiting( m_Sock ) )
+	if( !datawaiting( m_Sock, milisec ) )
 		return;				// recv will block
 
 	unsigned char buf[ 2048 ];
